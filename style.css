@@ -9,10 +9,6 @@
     --whiteColor: hsl(0, 0%, 100%);
     --blackColor: hsl(0, 0%, 0%);
     --fadedColor: hsla(0, 0%, 0%, 0.5);
-
-    color: #053e61;
-    color: #f2bc50;
-
 }
 
 img {
@@ -104,9 +100,9 @@ button {
 	border: 3px solid var(--whiteColor);
 }
 
-nav {
+/* nav {
 	filter: drop-shadow(2px 2px 6px var(--blackColor));
-}
+} */
 
 .colorMode {
 	position: absolute;
@@ -124,7 +120,7 @@ nav {
 	transition: all 0.5s ease-in-out;
 	border-radius: 10px;
 	z-index: 3;
-    filter: drop-shadow(2px 2px 6px var(--blackColor));
+    /* filter: drop-shadow(2px 2px 6px var(--blackColor)); */
 }
 
 .colorMode svg{
