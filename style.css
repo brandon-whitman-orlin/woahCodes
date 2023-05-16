@@ -547,7 +547,7 @@ button {
 
 .projectInfo {
 	position: relative;
-	font-size: 0.85rem;
+	font-size: 0.82rem;
 	color: var(--buttonColor);
 	padding-inline: 0.5rem;
 	transition: all 0.5s ease-in-out;
