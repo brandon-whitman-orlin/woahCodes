@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 textLabel.innerHTML = aboutTexts[idx];
                 textLabel.setAttribute("data-currentIndex", idx + 1);
 
-            }, 400);
+            }, 500);
             setTimeout(() => {
                 if (idx + 1 != 1) {
                     aboutImage.style.width = "10rem";
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             setTimeout(() => {
                 textLabel.innerHTML = aboutTexts[idx];
                 textLabel.setAttribute("data-currentIndex", idx + 1);
-            }, 400);
+            }, 500);
             setTimeout(() => {
                 if (idx + 1 != 1) {
                     aboutImage.style.width = "10rem";
