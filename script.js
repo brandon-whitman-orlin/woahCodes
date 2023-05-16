@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                     // Create the fourth link
                     const resumeLink = document.createElement('a');
-                    resumeLink.href = 'https://drive.google.com/file/d/1eck1qn9sFVrktAhpPNJZOOJVhmL_lAPL/view?usp=sharing';
+                    resumeLink.href = 'https://drive.google.com/file/d/1mX4d71WXOjvInnVRWB92DZW9DNJtIsTN/view?usp=sharing';
                     resumeLink.target = '_blank';
                     resumeLink.id = 'resumeButton';
                     resumeLink.classList.add('resumeLink', 'menuItem');
