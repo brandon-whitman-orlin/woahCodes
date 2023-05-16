@@ -501,34 +501,60 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // Color mode
 document.addEventListener('DOMContentLoaded', function() {
-    var colorMode = document.getElementById("colorMode");
-    var sunIcon = document.getElementById("moonIcon");
-    var moonIcon = document.getElementById("sunIcon");
-    
-    colorMode.addEventListener("click", function(){
-        if (moonIcon.style.opacity == 1) {
-            sunIcon.style.opacity = 1;
-            moonIcon.style.opacity = 0;
-            document.documentElement.style.setProperty('--headerColor', 'hsl(203, 90%, 20%)');
-            document.documentElement.style.setProperty('--buttonColor', 'hsl(171, 55%, 40%)');
-            document.documentElement.style.setProperty('--textColor', 'hsl(40, 86%, 63%)');
-            document.documentElement.style.setProperty('--accentColor', 'hsl(33, 69%, 55%)');
-            document.documentElement.style.setProperty('--mainColor', 'hsl(16, 81%, 53%)');
-        } else {
-            sunIcon.style.opacity = 0;
-            moonIcon.style.opacity = 1;
-            document.documentElement.style.setProperty('--headerColor', 'hsl(192, 15%, 20%)');
-            document.documentElement.style.setProperty('--buttonColor', 'hsl(8, 26%, 44%)');
-            document.documentElement.style.setProperty('--textColor', 'hsl(83, 27%, 64%)');
-            document.documentElement.style.setProperty('--accentColor', 'hsl(227, 37%, 31%)');
-            document.documentElement.style.setProperty('--mainColor', 'hsl(201, 20%, 14%)');
-            /*
-            document.documentElement.style.setProperty('--headerColor', 'hsl(197, 21%, 20%)');
-            document.documentElement.style.setProperty('--buttonColor', 'hsl(202, 19%, 35%)');
-            document.documentElement.style.setProperty('--textColor', 'hsl(2, 21%, 78%)');
-            document.documentElement.style.setProperty('--accentColor', 'hsl(188, 22%, 40%)');
-            document.documentElement.style.setProperty('--mainColor', 'hsl(230, 8%, 14%)');
-            */
-        }
-    });
+  var colorMode = document.getElementById("colorMode");
+  var sunIcon = document.getElementById("moonIcon");
+  var moonIcon = document.getElementById("sunIcon");
+  var leftIndicator = document.getElementById("leftIndicatorArrow");
+  var rightIndicator = document.getElementById("rightIndicatorArrow");
+
+  // Check if a color mode preference is stored in local storage
+  var storedColorMode = localStorage.getItem("colorMode");
+  if (storedColorMode === "dark") {
+    // Set the initial state to dark mode
+    sunIcon.style.opacity = 0;
+    moonIcon.style.opacity = 1;
+    document.documentElement.style.setProperty('--headerColor', 'hsl(192, 15%, 20%)');
+    document.documentElement.style.setProperty('--buttonColor', 'hsl(8, 26%, 44%)');
+    document.documentElement.style.setProperty('--textColor', 'hsl(170, 27%, 64%)');
+    document.documentElement.style.setProperty('--accentColor', 'hsl(227, 37%, 31%)');
+    document.documentElement.style.setProperty('--mainColor', 'hsl(201, 20%, 10%)');
+
+    document.documentElement.style.setProperty('--fadedColor', 'hsla(0, 0%, 20%, 0.7)');
+    leftIndicator.style.filter = "invert(25%) sepia(0%) saturate(329%) hue-rotate(139deg) brightness(96%) contrast(84%)";
+    rightIndicator.style.filter = "invert(25%) sepia(0%) saturate(329%) hue-rotate(139deg) brightness(96%) contrast(84%)";
+  }
+
+  colorMode.addEventListener("click", function() {
+    if (moonIcon.style.opacity == 1) {
+      sunIcon.style.opacity = 1;
+      moonIcon.style.opacity = 0;
+      document.documentElement.style.setProperty('--headerColor', 'hsl(203, 90%, 20%)');
+      document.documentElement.style.setProperty('--buttonColor', 'hsl(171, 55%, 40%)');
+      document.documentElement.style.setProperty('--textColor', 'hsl(40, 86%, 63%)');
+      document.documentElement.style.setProperty('--accentColor', 'hsl(33, 69%, 55%)');
+      document.documentElement.style.setProperty('--mainColor', 'hsl(16, 81%, 53%)');
+
+      document.documentElement.style.setProperty('--fadedColor', 'hsla(0, 0%, 0%, 0.5)');
+      leftIndicator.style.filter = "none";
+      rightIndicator.style.filter = "none";
+
+      // Store the color mode preference in local storage
+      localStorage.setItem("colorMode", "light");
+    } else {
+      sunIcon.style.opacity = 0;
+      moonIcon.style.opacity = 1;
+      document.documentElement.style.setProperty('--headerColor', 'hsl(192, 15%, 20%)');
+      document.documentElement.style.setProperty('--buttonColor', 'hsl(8, 26%, 44%)');
+      document.documentElement.style.setProperty('--textColor', 'hsl(170, 27%, 64%)');
+      document.documentElement.style.setProperty('--accentColor', 'hsl(227, 37%, 31%)');
+      document.documentElement.style.setProperty('--mainColor', 'hsl(201, 20%, 10%)');
+
+      document.documentElement.style.setProperty('--fadedColor', 'hsla(0, 0%, 20%, 0.7)');
+      leftIndicator.style.filter = "invert(25%) sepia(0%) saturate(329%) hue-rotate(139deg) brightness(96%) contrast(84%)";
+      rightIndicator.style.filter = "invert(25%) sepia(0%) saturate(329%) hue-rotate(139deg) brightness(96%) contrast(84%)";
+
+      // Store the color mode preference in local storage
+      localStorage.setItem("colorMode", "dark");
+    }
+  });
 });
