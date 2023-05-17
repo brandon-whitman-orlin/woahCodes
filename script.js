@@ -319,6 +319,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const leftArrow = document.getElementById("leftIndicatorArrow");
     const rightArrow = document.getElementById("rightIndicatorArrow");
     var idx = projectCardWrapper.getAttribute("data-currentIndex") - 1;
+    var preload = new Image();
+
 
     const dotHolder = document.getElementById("dotHolder");
     if (dotHolder) {
@@ -353,6 +355,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     if (leftArrow && rightArrow) {
         leftArrow.addEventListener("click", function() {
+            preload.src = projectImageList[idx];
             if (idx - 1 < 0) {
                 idx = projectTitleList.length - 1;
             } else {
@@ -367,6 +370,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 projectTitle.innerHTML = projectTitleList[idx];
                 projectLanguage.innerHTML = projectLanguageList[idx];
                 projectDescription.innerHTML = projectDescriptionList[idx];
+                
                 projectImage.src = projectImageList[idx];
                 projectImage.alt = projectImageAltList[idx];
                 projectCardWrapper.setAttribute("data-currentIndex", idx + 1);
@@ -385,6 +389,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }, 450);
         });
         rightArrow.addEventListener("click", function() {
+            preload.src = projectImageList[idx];
             if (idx + 1 >= projectTitleList.length) {
                 idx = 0;
             } else {
