@@ -464,6 +464,10 @@ button {
 	pointer-events: all;
 }
 
+.preload {
+	display: none;
+}
+
 .projectCard {
 	position: absolute;
 	width: 20rem;
