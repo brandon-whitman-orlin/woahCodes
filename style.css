@@ -83,12 +83,14 @@ button {
 	height: 4rem;
 	font-size: 3.5rem;
 	width: 100%;
-	-webkit-text-stroke: 1px var(--textColor);
 	background-color: var(--headerColor);
 	color: var(--buttonColor);
 	z-index: 2;
     transition: all 0.5s ease-in-out;
+}
 
+.pageTitle {
+	-webkit-text-stroke: 1px var(--textColor);
 }
 
 .pageHeader a {
