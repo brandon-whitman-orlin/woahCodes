@@ -472,28 +472,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // Konami code
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Define the Konami code sequence
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
   
-    // Keep track of the last 10 key presses
     let last10KeyPresses = [];
   
-    // Add an event listener for key presses
     document.addEventListener('keydown', (event) => {
-      // Add the pressed key to the end of the last10KeyPresses array
-      last10KeyPresses.push(event.code);
+
+        last10KeyPresses.push(event.code);
   
-      // If the array has more than 10 elements, remove the first element
       if (last10KeyPresses.length > 10) {
         last10KeyPresses.shift();
       }
   
-      // Check if the last 10 key presses match the Konami code sequence
       if (last10KeyPresses.join(',') === konamiCode.join(',')) {
-        // The Konami code has been entered, so print a message to the console
-        console.log('Konami code detected!');
+
+        var game = document.getElementById("gamescreen");
+        var buttons = document.querySelectorAll(".headerButton");
+
+        var audio = new Audio('sparkle.mp3');
+        audio.play();
+        if (game && buttons) {
+            for (let i = 0; i < buttons.length; i += 1) {
+                buttons[i].style.display = "none";
+            }
+            game.style.display = "flex";
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+            top: 0,
+            behavior: 'instant'
+            });
+        }
+
+        scrollToTop();
+        document.body.style.overflow = "hidden";
   
-        // Clear the last10KeyPresses array for the next entry
         last10KeyPresses = [];
 
       }
@@ -559,4 +573,111 @@ document.addEventListener('DOMContentLoaded', function() {
       localStorage.setItem("colorMode", "dark");
     }
   });
+});
+
+// Memory game
+document.addEventListener('DOMContentLoaded', function() {
+    var game = document.getElementById("gamescreen");
+    var score = document.getElementById("numClicks");
+    var gameNum = document.getElementById("numRounds");
+    const reset = document.getElementById("resetButton");
+    const close = document.getElementById("closeButton");
+    var buttons = document.querySelectorAll(".headerButton");
+
+    
+    const cards = document.querySelectorAll(".card");
+    var selectedCards = [];
+    var paused = false;
+
+    close.addEventListener("click", function() {
+        resetBoard();
+        game.style.display = "none";
+        document.body.style.overflow = "auto";
+        for (let i = 0; i < buttons.length; i += 1) {
+            buttons[i].style.display = "flex";
+        }
+    });
+    
+    if (score && gameNum && reset && close && cards) {
+        resetBoard();
+    
+        reset.addEventListener("click", function() {
+            resetBoard();
+            score.innerHTML = 0;
+            gameNum.innerHTML = 0;
+        });
+        
+        if (cards.length >= 1) {
+            for (let i = 0; i < cards.length; i += 1) {
+                cards[i].addEventListener("click", function() {
+                    flip(cards[i]);
+                });
+            }
+        }
+        
+        function flip(card) {
+            if (!paused) {
+                
+                if (!(selectedCards.includes(card)) && card.id !== "matched") {
+                  score.innerHTML = Number(score.innerHTML) + 1;
+                    card.style.backgroundColor = card.id;
+                    selectedCards.push(card);
+        
+                    if (selectedCards.length === 2) {
+                        paused = true;
+                        if (selectedCards[0].style.backgroundColor === selectedCards[1].style.backgroundColor) {
+                            selectedCards[0].id = "matched";
+                            selectedCards[1].id = "matched";
+                            selectedCards = [];
+                            paused = false;
+                        } else {
+                            setTimeout(() => {
+                                selectedCards[0].style.backgroundColor = "rgb(100, 100, 100)";
+                                selectedCards[1].style.backgroundColor = "rgb(100, 100, 100)";
+                                selectedCards = [];
+                                paused = false;
+                            }, 300);
+                        }
+        
+                        // Check if every card has an id of "matched"
+                        if ([...cards].every(card => card.id === "matched")) {
+                            setTimeout(() => {
+                              resetBoard();
+                              gameNum.innerHTML = Number(gameNum.innerHTML) + 1;
+                            }, "300");
+                        }
+                    }
+                }
+            } else {
+                // If paused, ignore the click event
+                return;
+            }
+        }
+        
+        function resetBoard() {
+            for (let i = 0; i < cards.length; i += 1) {
+                cards[i].style.backgroundColor = "rgb(100, 100, 100)";
+            }
+            var preColor = Array.from(cards);
+            while (preColor.length >= 1) {
+                var color = generateRandomRGB();
+                var cardIndex = Math.floor(Math.random() * preColor.length);
+                preColor[cardIndex].id = color;
+                preColor.splice(cardIndex, 1);
+                var cardIndex2 = Math.floor(Math.random() * preColor.length);
+                preColor[cardIndex2].id = color;
+                preColor.splice(cardIndex2, 1);
+            }
+        
+            function generateRandomRGB() {
+                const red = Math.floor(Math.random() * 256);
+                const green = Math.floor(Math.random() * 256);
+                const blue = Math.floor(Math.random() * 256);
+        
+                const rgbValue = `rgb(${red}, ${green}, ${blue})`;
+        
+                return rgbValue;
+            }
+        }
+    }
 });
